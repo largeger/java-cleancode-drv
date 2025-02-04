@@ -1,5 +1,3 @@
-import java.io.Serializable;
-
 public class CodeSmells4 {
     // Data Classes: Original
     class UserData {
