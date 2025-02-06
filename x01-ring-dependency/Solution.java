@@ -1,35 +1,45 @@
 interface IA {
-    void doSomething();
+    void setB(IB b);
+}
+
+interface IB {
+    void setC(IC c);
+}
+
+interface IC {
+    void setA(IA a);
 }
 
 class A implements IA {
+    private IB b;
+    
+    public A() {}
+
     @Override
-    public void doSomething() {
-        System.out.println("A is doing something");
+    public void setB(IB b) {
+        this.b = b;
     }
 }
 
-class B {
-    private IA a;
-
-    public B(IA a) {
-        this.a = a;
-    }
+class B implements IB {
+    private IC c;
     
-    public void useA() {
-        a.doSomething();
+    public B() {}
+
+    @Override
+    public void setC(IC c) {
+        this.c = c;
     }
 }
 
-class C {
+class C implements IC {
     private IA a;
-
-    public C(IA a) {
-        this.a = a;
-    }
     
-    public void useA() {
-        a.doSomething();
+    public C() {}
+
+    @Override
+    public void setA(IA a) {
+        this.a = a;
     }
 }
 
@@ -37,11 +47,16 @@ class C {
 public class Solution {
     public static void main(String[] args) {
         A a = new A();
-        B b = new B(a);
-        C c = new C(a);
+        B b = new B();
+        C c = new C();
         
-        b.useA();
-        c.useA();
+        a.setB(b);
+        b.setC(c);
+        c.setA(a);
+        
+        // Now you can use the objects as needed
+        // For example:
+        // b.useA();
     }
     
 }
